@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Knight - Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --hollow-dark: #0c0c14;
+            --hollow-blue: #1a5fb4;
+            --hollow-light: #d4d4d8;
+            --hollow-orange: #ff8c00;
+            --hollow-gray: #32323d;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--hollow-dark);
+            color: var(--hollow-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Header e Navegação */
+        header {
+            background-color: rgba(12, 12, 20, 0.95);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--hollow-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            color: var(--hollow-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--hollow-orange);
+        }
+
+        .mobile-menu-btn {
+            background: transparent;
+            border: none;
+            color: var(--hollow-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 80%;
+            height: calc(100vh - 70px);
+            background-color: var(--hollow-gray);
+            transition: right 0.3s ease;
+            padding: 20px;
+            z-index: 99;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--hollow-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--hollow-blue);
+            color: white;
+        }
+
+        .nav-menu i {
+            margin-right: 10px;
+            width: 25px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(12, 12, 20, 0.8), rgba(12, 12, 20, 0.9)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2.5rem;
+            color: var(--hollow-blue);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--hollow-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--hollow-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2rem;
+            color: var(--hollow-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--hollow-orange);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Cards de Personagens */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .character-card {
+            background-color: var(--hollow-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .character-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .character-info {
+            padding: 20px;
+        }
+
+        .character-name {
+            font-size: 1.4rem;
+            color: var(--hollow-orange);
+            margin-bottom: 10px;
+        }
+
+        /* Informações do Jogo */
+        .game-info {
+            background-color: var(--hollow-gray);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--hollow-blue);
+            margin-right: 15px;
+            width: 30px;
+        }
+
+        /* Downloads */
+        .download-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .download-card {
+            background-color: var(--hollow-gray);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .download-card h3 {
+            color: var(--hollow-orange);
+            margin-bottom: 15px;
+        }
+
+        .download-card p {
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #08080f;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 2px solid var(--hollow-blue);
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            color: var(--hollow-blue);
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: var(--hollow-light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--hollow-orange);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .nav-menu {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                padding: 0;
+            }
+            
+            .nav-menu ul {
+                display: flex;
+                gap: 20px;
+            }
+            
+            .nav-menu li {
+                margin-bottom: 0;
+            }
+            
+            .nav-menu a {
+                padding: 8px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .download-options {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-ghost"></i> Hollow Knight
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="#characters"><i class="fas fa-user-ninja"></i> Personagens</a></li>
+                    <li><a href="#gameplay"><i class="fas fa-gamepad"></i> Jogabilidade</a></li>
+                    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>HOLLOW KNIGHT MOBILE</h1>
+            <p>Explore as profundezas de Hallownest em uma aventura de ação e plataforma inesquecível, agora otimizada para dispositivos móveis.</p>
+            <a href="#download" class="btn">Jogar Agora</a>
+        </div>
+    </section>
+
+    <!-- Sobre o Jogo -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Sobre o Jogo</h2>
+            <div class="game-info">
+                <div class="info-item">
+                    <i class="fas fa-map"></i>
+                    <div>
+                        <h3>Mundo Vasto e Interconectado</h3>
+                        <p>Explore cavernas serpenteantes, cidades antigas e ermos mortais. Viaje pelas profundezas, desvende segredos e resolva mistérios antigos.</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-crosshairs"></i>
+                    <div>
+                        <h3>Combate Ágil</h3>
+                        <p>Domine um combate ágil e evoluído. Liberte habilidades fatais e armas poderosas para derrotar inimigos desafiadores.</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-palette"></i>
+                    <div>
+                        <h3>Arte Deslumbrante</h3>
+                        <p>Mergulhe em um mundo vibrante e moribundo ilustrado em 2D, com animação meticulosa e um estilo artístico único.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personagens -->
+    <section id="characters" style="background-color: rgba(50, 50, 61, 0.3);">
+        <div class="container">
+            <h2 class="section-title">Personagens</h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="character-img" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="character-info">
+                        <h3 class="character-name">O Cavaleiro</h3>
+                        <p>O protagonista silencioso em uma missão para descobrir os segredos de Hallownest. Ágil e determinado, ele enfrenta perigos com sua arma principal, a Agulha Antiga.</p>
+                    </div>
+                </div>
+                <div class="character-card">
+                    <div class="character-img" style="background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="character-info">
+                        <h3 class="character-name">Hornet</h3>
+                        <p>Protetora das ruínas de Hallownest, Hornet é rápida, letal e misteriosa. Ela observa o Cavaleiro em sua jornada, testando suas habilidades em combates desafiadores.</p>
+                    </div>
+                </div>
+                <div class="character-card">
+                    <div class="character-img" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="character-info">
+                        <h3 class="character-name">Zote, o Poderoso</h3>
+                        <p>Um viajante arrogante que se considera o guerreiro mais poderoso de Hallownest, apesar de sua evidente incompetência em combate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download">
+        <div class="container">
+            <h2 class="section-title">Download para Mobile</h2>
+            <div class="download-options">
+                <div class="download-card">
+                    <h3>Versão Gratuita</h3>
+                    <p>Experimente os primeiros níveis de Hollow Knight gratuitamente. Inclui acesso às primeiras áreas e desafios iniciais.</p>
+                    <a href="#" class="btn"><i class="fab fa-google-play"></i> Baixar Grátis</a>
+                </div>
+                <div class="download-card">
+                    <h3>Versão Completa</h3>
+                    <p>Acesso completo a todo o mundo de Hallownest, todos os chefes, habilidades e conteúdo adicional.</p>
+                    <a href="#" class="btn"><i class="fab fa-apple"></i> Comprar Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Hollow Knight Mobile</div>
+            <p>Uma experiência de jogo profunda e cativante na palma da sua mão.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">© 2023 Hollow Knight Mobile. Todos os direitos reservados. Hollow Knight é uma marca registrada da Team Cherry.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Rolagem suave para as âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Alterar estilo do header ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(12, 12, 20, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.7)';
+            } else {
+                header.style.backgroundColor = 'rgba(12, 12, 20, 0.95)';
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.5)';
+            }
+        });
+    </script>
+</body>
+</html>
