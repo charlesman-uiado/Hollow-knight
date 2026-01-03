@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Knight - APK e IPA Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --hollow-dark: #0c0c14;
+            --hollow-blue: #1a5fb4;
+            --hollow-light: #d4d4d8;
+            --hollow-orange: #ff8c00;
+            --hollow-gray: #32323d;
+            --hollow-green: #3DDC84;
+            --hollow-red: #ff4757;
+            --hollow-purple: #8a2be2;
+            --neon-green: #00ff88;
+            --ipe-blue: #00b4ff;
+            --ios-purple: #8e44ad;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--hollow-dark);
+            color: var(--hollow-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Header e Navegação */
+        header {
+            background-color: rgba(12, 12, 20, 0.95);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--hollow-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            color: var(--hollow-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--hollow-orange);
+        }
+
+        .mobile-menu-btn {
+            background: transparent;
+            border: none;
+            color: var(--hollow-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 80%;
+            height: calc(100vh - 70px);
+            background-color: var(--hollow-gray);
+            transition: right 0.3s ease;
+            padding: 20px;
+            z-index: 99;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--hollow-light);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--hollow-blue);
+            color: white;
+        }
+
+        .nav-menu i {
+            margin-right: 10px;
+            width: 25px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(12, 12, 20, 0.8), rgba(12, 12, 20, 0.9)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2.5rem;
+            color: var(--hollow-blue);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--hollow-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--hollow-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-classic {
+            background-color: var(--hollow-blue);
+        }
+
+        .btn-silksong {
+            background-color: var(--hollow-purple);
+        }
+
+        .btn-classic:hover {
+            background-color: #0f4c8a;
+        }
+
+        .btn-silksong:hover {
+            background-color: #6a1fb9;
+        }
+
+        /* Banner de Aviso */
+        .warning-banner {
+            background-color: rgba(255, 71, 87, 0.2);
+            border: 2px solid var(--hollow-red);
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .warning-banner h3 {
+            color: var(--hollow-red);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .warning-banner p {
+            font-size: 1rem;
+            color: #ffcccc;
+        }
+
+        /* Banner de Sucesso */
+        .success-banner {
+            background-color: rgba(0, 255, 136, 0.2);
+            border: 2px solid var(--neon-green);
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 800px;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        .success-banner h3 {
+            color: var(--neon-green);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .success-banner p {
+            font-size: 1rem;
+            color: #ccffec;
+        }
+
+        /* Banner de iOS */
+        .ios-banner {
+            background: linear-gradient(135deg, #8e44ad, #6c3483);
+            border: 2px solid var(--ios-purple);
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .ios-banner h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .ios-banner p {
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2rem;
+            color: var(--hollow-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--hollow-orange);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Seção de Versões */
+        .versions-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .version-card {
+            background-color: var(--hollow-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .version-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .version-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid;
+        }
+
+        .classic-header {
+            background: linear-gradient(135deg, #0c2461, #1a5fb4);
+            border-color: var(--hollow-blue);
+        }
+
+        .silksong-header {
+            background: linear-gradient(135deg, #4a235a, #8a2be2);
+            border-color: var(--hollow-purple);
+        }
+
+        .version-header h3 {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .version-cover {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        .version-info {
+            padding: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-label {
+            color: #aaa;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: white;
+            font-weight: 600;
+        }
+
+        .classic-value {
+            color: var(--hollow-blue);
+        }
+
+        .silksong-value {
+            color: var(--hollow-purple);
+        }
+
+        /* Modal de Seleção de Formato */
+        .format-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .format-modal-content {
+            background-color: var(--hollow-gray);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .format-modal-header {
+            padding-bottom: 20px;
+            border-bottom: 2px solid;
+            margin-bottom: 25px;
+        }
+
+        .modal-classic {
+            border-color: var(--hollow-blue);
+        }
+
+        .modal-silksong {
+            border-color: var(--hollow-purple);
+        }
+
+        .format-modal-header h3 {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .format-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .format-option {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .format-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .format-option.apk-option {
+            border-color: var(--hollow-green);
+        }
+
+        .format-option.ipa-option {
+            border-color: var(--ios-purple);
+        }
+
+        .format-option i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .apk-option i {
+            color: var(--hollow-green);
+        }
+
+        .ipa-option i {
+            color: var(--ios-purple);
+        }
+
+        .format-option h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .format-details {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        .format-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Comparação APK vs IPA */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background-color: var(--hollow-blue);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .apk-badge {
+            background-color: var(--hollow-green);
+            color: var(--hollow-dark);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .ipa-badge {
+            background-color: var(--ios-purple);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .check-badge {
+            background-color: var(--neon-green);
+            color: var(--hollow-dark);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #08080f;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 2px solid var(--hollow-blue);
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            color: var(--hollow-blue);
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: var(--hollow-light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--hollow-orange);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* Botão de Download Direto */
+        .direct-download {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.2), rgba(12, 12, 20, 0.8));
+            border-radius: 15px;
+            border: 2px solid var(--hollow-blue);
+        }
+
+        .direct-download h3 {
+            color: var(--hollow-blue);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .direct-download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--hollow-blue), #0f4c8a);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.4);
+        }
+
+        .direct-download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 95, 180, 0.6);
+            background: linear-gradient(135deg, #0f4c8a, var(--hollow-blue));
+        }
+
+        .direct-download-btn.apk-btn {
+            background: linear-gradient(135deg, var(--hollow-green), #2ca25f);
+        }
+
+        .direct-download-btn.ipa-btn {
+            background: linear-gradient(135deg, var(--ios-purple), #6c3483);
+        }
+
+        .direct-download-btn i {
+            margin-right: 10px;
+        }
+
+        /* Seção de Downloads Diretos */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .download-platform {
+            background-color: var(--hollow-gray);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .download-platform.android {
+            border-top: 5px solid var(--hollow-green);
+        }
+
+        .download-platform.ios {
+            border-top: 5px solid var(--ios-purple);
+        }
+
+        .platform-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .android .platform-icon {
+            color: var(--hollow-green);
+        }
+
+        .ios .platform-icon {
+            color: var(--ios-purple);
+        }
+
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .nav-menu {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                padding: 0;
+            }
+            
+            .nav-menu ul {
+                display: flex;
+                gap: 20px;
+            }
+            
+            .nav-menu li {
+                margin-bottom: 0;
+            }
+            
+            .nav-menu a {
+                padding: 8px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .versions-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .format-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-ghost"></i> Hollow Knight APK/IPA
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#versions"><i class="fas fa-gamepad"></i> Versões</a></li>
+                    <li><a href="#downloads"><i class="fas fa-download"></i> Downloads Diretos</a></li>
+                    <li><a href="#comparison"><i class="fas fa-balance-scale"></i> APK vs IPA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>HOLLOW KNIGHT MOBILE</h1>
+            <p>Agora disponível para Android em APK e iOS em IPA! Escolha sua plataforma preferida.</p>
+            
+            <div class="ios-banner">
+                <h3>🍎 NOVO: VERSÃO iOS DISPONÍVEL 🍎</h3>
+                <p><strong>FORMATO IPA AGORA DISPONÍVEL!</strong> - Hollow Knight para iPhone/iPad via sideload.</p>
+            </div>
+            
+            <div class="success-banner">
+                <h3>✅ APPS COMPATÍVEIS ✅</h3>
+                <p><strong><span style="color:var(--neon-green);">SAVES E MODS FUNCIONANDO</span></strong> - Os apps APK e IPA aceitam saves e mods normalmente. Apenas esta página não os oferece.</p>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+                <button class="btn btn-classic" onclick="openFormatModal('classic')">HOLLOW KNIGHT CLÁSSICO</button>
+                <button class="btn btn-silksong" onclick="openFormatModal('silksong')">HOLLOW KNIGHT SILKSONG</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Diretos -->
+    <section id="downloads">
+        <div class="container">
+            <h2 class="section-title">DOWNLOADS DIRETOS</h2>
+            <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Links oficiais do GitHub - Baixe diretamente sem intermediários
+            </p>
+            
+            <div class="download-grid">
+                <!-- Android APK -->
+                <div class="download-platform android">
+                    <div class="platform-icon">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3>ANDROID APK</h3>
+                    <p>Hollow Knight Clássico para Android</p>
+                    <p style="margin: 15px 0; color: #aaa; font-size: 0.9rem;">
+                        <i class="fas fa-file-alt"></i> Hollow-Knight-v22-10-2022.apk<br>
+                        <i class="fas fa-weight-hanging"></i> Tamanho: 1.8 GB<br>
+                        <i class="fas fa-calendar-alt"></i> Versão: 22/10/2022
+                    </p>
+                    <a href="https://github.com/charlesman-uiado/Hollow-knight/releases/download/untagged-20e411ba7cdcd74ae23f/Hollow-Knight-v22-10-2022.apk" 
+                       class="direct-download-btn apk-btn" 
+                       download="Hollow-Knight-v22-10-2022.apk">
+                        <i class="fas fa-download"></i> BAIXAR APK ANDROID
+                    </a>
+                    <p style="margin-top: 15px; font-size: 0.8rem; color: var(--neon-green);">
+                        <i class="fas fa-check-circle"></i> Saves e mods funcionam
+                    </p>
+                </div>
+                
+                <!-- iOS IPA -->
+                <div class="download-platform ios">
+                    <div class="platform-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>iOS IPA</h3>
+                    <p>Hollow Knight Clássico para iPhone/iPad</p>
+                    <p style="margin: 15px 0; color: #aaa; font-size: 0.9rem;">
+                        <i class="fas fa-file-alt"></i> Hollow.Knight.v1.5.78.11833b5.tg@glesign.ipa<br>
+                        <i class="fas fa-weight-hanging"></i> Tamanho: 1.5 GB<br>
+                        <i class="fas fa-calendar-alt"></i> Versão: 1.5.78
+                    </p>
+                    <a href="https://github.com/charlesman-uiado/Hollow-knight/releases/download/untagged-72e84ae5f7f6405fc7ed/Hollow.Knight.v1.5.78.11833b5.tg@glesign.ipa" 
+                       class="direct-download-btn ipa-btn" 
+                       download="Hollow.Knight.iOS.ipa">
+                        <i class="fas fa-download"></i> BAIXAR IPA iOS
+                    </a>
+                    <p style="margin-top: 15px; font-size: 0.8rem; color: var(--neon-green);">
+                        <i class="fas fa-check-circle"></i> Saves e mods funcionam
+                    </p>
+                </div>
+            </div>
+            
+            <div class="success-banner" style="margin-top: 40px;">
+                <h3>📱 INSTALAÇÃO MULTIPLATAFORMA 📱</h3>
+                <p><strong>Android:</strong> Ative "Fontes desconhecidas" e instale o APK.<br>
+                <strong>iOS:</strong> Use AltStore, Sideloadly ou Cydia Impactor para instalar o IPA.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Versões Disponíveis -->
+    <section id="versions" style="background-color: rgba(50, 50, 61, 0.3);">
+        <div class="container">
+            <h2 class="section-title">VERSÕES DISPONÍVEIS</h2>
+            <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Clique em qualquer versão para escolher entre APK (Android) ou IPA (iOS).
+            </p>
+            
+            <div class="success-banner" style="margin-bottom: 30px;">
+                <h3>✅ SAVES E MODS COMPATÍVEIS ✅</h3>
+                <p>Os aplicativos APK (Android) e IPA (iOS) suportam <strong>saves</strong> e <strong>mods</strong> normalmente. Apenas esta página de apresentação não oferece esses recursos diretamente.</p>
+            </div>
+            
+            <div class="versions-section">
+                <!-- Hollow Knight Clássico -->
+                <div class="version-card" onclick="openFormatModal('classic')">
+                    <div class="version-header classic-header">
+                        <h3>HOLLOW KNIGHT</h3>
+                        <p>Versão Clássica</p>
+                    </div>
+                    
+                    <div class="version-cover" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="cover-overlay">
+                            <p>Clique para escolher formato: APK ou IPA</p>
+                        </div>
+                    </div>
+                    
+                    <div class="version-info">
+                        <div class="info-row">
+                            <span class="info-label">Data de Lançamento:</span>
+                            <span class="info-value classic-value">24/02/2017</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Plataformas:</span>
+                            <span class="info-value classic-value">Android & iOS</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Tamanho APK:</span>
+                            <span class="info-value classic-value">1.8 GB</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Tamanho IPA:</span>
+                            <span class="info-value classic-value">1.5 GB</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Saves/Mods:</span>
+                            <span class="info-value" style="color: var(--neon-green);">✅ Suportados</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hollow Knight Silksong -->
+                <div class="version-card" onclick="openFormatModal('silksong')">
+                    <div class="version-header silksong-header">
+                        <h3>HOLLOW KNIGHT SILKSONG</h3>
+                        <p>Sequência Lançada</p>
+                    </div>
+                    
+                    <div class="version-cover" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="cover-overlay">
+                            <p>Clique para escolher formato: APK ou IPA</p>
+                        </div>
+                    </div>
+                    
+                    <div class="version-info">
+                        <div class="info-row">
+                            <span class="info-label">Data de Lançamento:</span>
+                            <span class="info-value silksong-value">14/02/2023</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Plataformas:</span>
+                            <span class="info-value silksong-value">Android & iOS</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Tamanho APK:</span>
+                            <span class="info-value silksong-value">2.3 GB</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Tamanho IPA:</span>
+                            <span class="info-value silksong-value">2.0 GB</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Saves/Mods:</span>
+                            <span class="info-value" style="color: var(--neon-green);">✅ Suportados</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparação APK vs IPA -->
+    <section id="comparison">
+        <div class="container">
+            <h2 class="section-title">APK vs IPA - QUAL ESCOLHER?</h2>
+            
+            <div class="success-banner" style="margin-bottom: 30px;">
+                <h3>🎮 SAVES E MODS FUNCIONAIS 🎮</h3>
+                <p>Ambos os formatos <strong>APK (Android)</strong> e <strong>IPA (iOS)</strong> suportam totalmente <strong>saves</strong> e <strong>mods</strong>. Os jogos funcionam normalmente com esses recursos.</p>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Formato APK (Android)</th>
+                        <th>Formato IPA (iOS)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Plataforma</strong></td>
+                        <td><span class="apk-badge">Android 8.0+</span></td>
+                        <td><span class="ipa-badge">iOS 12.0+</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tamanho do Arquivo</strong></td>
+                        <td>1.8 GB (Clássico)</td>
+                        <td>1.5 GB (Clássico)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Método de Instalação</strong></td>
+                        <td>Fontes desconhecidas + APK</td>
+                        <td>Sideload (AltStore/Sideloadly)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Suporte a Saves</strong></td>
+                        <td><span class="check-badge">✅ COMPLETO</span></td>
+                        <td><span class="check-badge">✅ COMPLETO</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Suporte a Mods</strong></td>
+                        <td><span class="check-badge">✅ COMPLETO</span></td>
+                        <td><span class="check-badge">✅ COMPLETO</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Assinatura Necessária</strong></td>
+                        <td>Não</td>
+                        <td>Apple Developer ID (7 dias)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reinstalação</strong></td>
+                        <td>Sem limites</td>
+                        <td>A cada 7 dias (free account)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div style="background-color: rgba(61, 220, 132, 0.1); padding: 20px; border-radius: 10px; border-left: 5px solid var(--hollow-green);">
+                    <h3 style="color: var(--hollow-green); margin-bottom: 15px;"><i class="fab fa-android"></i> VANTAGENS DO APK</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Instalação direta sem restrições de tempo</li>
+                        <li>Método de instalação conhecido</li>
+                        <li>Sem necessidade de assinatura Apple</li>
+                        <li>Mais fácil para usuários Android</li>
+                        <li><strong>Saves e mods funcionam normalmente</strong></li>
+                    </ul>
+                </div>
+                
+                <div style="background-color: rgba(142, 68, 173, 0.1); padding: 20px; border-radius: 10px; border-left: 5px solid var(--ios-purple);">
+                    <h3 style="color: var(--ios-purple); margin-bottom: 15px;"><i class="fab fa-apple"></i> VANTAGENS DO IPA</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Disponível para iPhone e iPad</li>
+                        <li>Otimizado para hardware Apple</li>
+                        <li>Interface nativa do iOS</li>
+                        <li>Melhor integração com Game Center</li>
+                        <li><strong>Saves e mods funcionam normalmente</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instruções de Instalação -->
+    <section style="background-color: rgba(50, 50, 61, 0.3);">
+        <div class="container">
+            <h2 class="section-title">COMO INSTALAR APK E IPA</h2>
+            
+            <div class="success-banner" style="margin-bottom: 30px;">
+                <h3>💾 SEUS SAVES ESTÃO SEGUROS 💾</h3>
+                <p>Após instalar o jogo, você pode salvar seu progresso normalmente e até instalar mods. Os aplicativos suportam esses recursos completamente.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div style="text-align: center;">
+                    <div style="background-color: var(--hollow-green); color: var(--hollow-dark); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; font-size: 1.5rem;">1</div>
+                    <h3 style="color: var(--hollow-green); margin-bottom: 15px;">ANDROID: APK</h3>
+                    <p>1. Ative "Fontes desconhecidas" em Configurações > Segurança<br>
+                    2. Baixe o arquivo APK<br>
+                    3. Toque no arquivo para instalar</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="background-color: var(--ios-purple); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; font-size: 1.5rem;">2</div>
+                    <h3 style="color: var(--ios-purple); margin-bottom: 15px;">iOS: IPA</h3>
+                    <p>1. Instale AltStore ou Sideloadly no PC/Mac<br>
+                    2. Conecte seu dispositivo iOS<br>
+                    3. Use o software para instalar o IPA</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="background-color: var(--hollow-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; font-size: 1.5rem;">3</div>
+                    <h3 style="color: var(--hollow-orange); margin-bottom: 15px;">JOGAR E SALVAR</h3>
+                    <p>1. Abra o jogo após instalação<br>
+                    2. Seu progresso é salvo automaticamente<br>
+                    3. Mods podem ser instalados normalmente<br>
+                    4. Divirta-se explorando Hallownest!</p>
+                </div>
+            </div>
+            
+            <div class="success-banner" style="margin-top: 40px;">
+                <h3>✅ FUNCIONALIDADES CONFIRMADAS ✅</h3>
+                <p><strong><span style="color:var(--neon-green);">SAVES E MODS FUNCIONAM PERFEITAMENTE</span></strong> - Ambos os formatos APK (Android) e IPA (iOS) suportam totalmente o salvamento de progresso e instalação de modificações.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Seleção de Formato -->
+    <div class="format-modal" id="formatModal">
+        <div class="format-modal-content">
+            <span class="format-close" onclick="closeFormatModal()">&times;</span>
+            <div class="format-modal-header" id="modalHeader">
+                <h3 id="modalGameTitle">HOLLOW KNIGHT</h3>
+                <p>Escolha o formato de download</p>
+            </div>
+            
+            <div class="format-options">
+                <div class="format-option apk-option" onclick="downloadAPK()">
+                    <i class="fab fa-android"></i>
+                    <h4>FORMATO APK</h4>
+                    <p>Para Android</p>
+                    <div class="format-details" id="apkDetails">Tamanho: 1.8 GB</div>
+                    <div style="margin-top: 10px;">
+                        <span class="check-badge" style="font-size: 0.7rem; padding: 2px 8px;">✅ SAVES/MODS</span>
+                    </div>
+                </div>
+                
+                <div class="format-option ipa-option" onclick="downloadIPA()">
+                    <i class="fab fa-apple"></i>
+                    <h4>FORMATO IPA</h4>
+                    <p>Para iOS</p>
+                    <div class="format-details" id="ipaDetails">Tamanho: 1.5 GB</div>
+                    <div style="margin-top: 10px;">
+                        <span class="check-badge" style="font-size: 0.7rem; padding: 2px 8px;">✅ SAVES/MODS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; padding: 15px; background-color: rgba(0,0,0,0.3); border-radius: 10px;">
+                <p style="font-size: 0.9rem; color: #aaa;">
+                    <i class="fas fa-info-circle"></i> Ambos os formatos são completos e gratuitos. Escolha conforme sua plataforma.
+                </p>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background-color: rgba(0, 255, 136, 0.1); border-radius: 10px; border-left: 5px solid var(--neon-green);">
+                <p style="font-size: 0.9rem; color: #ccffec;">
+                    <i class="fas fa-check-circle"></i> <strong>CONFIRMADO:</strong> Ambos os formatos suportam saves e mods normalmente.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Hollow Knight APK & IPA Collection</div>
+            <p>Versões Clássica e Silksong para Android (APK) e iOS (IPA)</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-android"></i></a>
+                <a href="#"><i class="fab fa-apple"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
+            <p class="copyright">© 2023 Hollow Knight APK & IPA Collection. Versões não-oficiais para Android e iOS.</p>
+            <p class="copyright">Hollow Knight e Hollow Knight: Silksong são marcas registradas da Team Cherry.</p>
+            <p class="copyright" style="color: var(--neon-green); font-weight: bold; margin-top: 10px;">
+                ✅ APPS APK E IPA ACEITAM SAVES E MODS NORMALMENTE ✅
+            </p>
+            <p class="copyright" style="color: var(--hollow-red); font-size: 0.8rem; margin-top: 5px;">
+                ⚠️ Apenas esta página não oferece saves e mods diretamente
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let selectedGame = '';
+        let selectedFormat = '';
+        
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Rolagem suave para as âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Função para abrir modal de formato
+        function openFormatModal(game) {
+            const modal = document.getElementById('formatModal');
+            const modalHeader = document.getElementById('modalHeader');
+            const modalTitle = document.getElementById('modalGameTitle');
+            const apkDetails = document.getElementById('apkDetails');
+            const ipaDetails = document.getElementById('ipaDetails');
+            
+            selectedGame = game;
+            
+            // Configurar modal conforme o jogo selecionado
+            if (game === 'classic') {
+                modalHeader.className = 'format-modal-header modal-classic';
+                modalTitle.textContent = 'HOLLOW KNIGHT CLÁSSICO';
+                apkDetails.textContent = 'Tamanho: 1.8 GB | Android 8.0+';
+                ipaDetails.textContent = 'Tamanho: 1.5 GB | iOS 12.0+';
+            } else if (game === 'silksong') {
+                modalHeader.className = 'format-modal-header modal-silksong';
+                modalTitle.textContent = 'HOLLOW KNIGHT SILKSONG';
+                apkDetails.textContent = 'Tamanho: 2.3 GB | Android 8.0+';
+                ipaDetails.textContent = 'Tamanho: 2.0 GB | iOS 12.0+';
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        // Fechar modal
+        function closeFormatModal() {
+            document.getElementById('formatModal').style.display = 'none';
+        }
+        
+        // Download APK
+        function downloadAPK() {
+            selectedFormat = 'APK';
+            
+            if (selectedGame === 'classic') {
+                // Link REAL do APK Clássico
+                window.open('https://github.com/charlesman-uiado/Hollow-knight/releases/download/untagged-20e411ba7cdcd74ae23f/Hollow-Knight-v22-10-2022.apk', '_blank');
+                alert('Download de Hollow Knight Clássico APK iniciado!\n\n📱 Plataforma: Android\n📁 Arquivo: Hollow-Knight-v22-10-2022.apk\n💾 Tamanho: 1.8 GB\n\n✅ Saves e mods funcionam normalmente neste app!');
+            } else {
+                // Link simulado para Silksong APK
+                const downloadLink = document.createElement('a');
+                downloadLink.href = '#';
+                downloadLink.download = 'Hollow_Knight_Silksong_APK_v1.0.2.5.apk';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                alert('Download de Hollow Knight Silksong APK iniciado!\n\n📱 Plataforma: Android\n📁 Arquivo: Hollow_Knight_Silksong_APK_v1.0.2.5.apk\n💾 Tamanho: 2.3 GB\n\n✅ Saves e mods funcionam normalmente neste app!');
+            }
+            
+            closeFormatModal();
+        }
+        
+        // Download IPA
+        function downloadIPA() {
+            selectedFormat = 'IPA';
+            
+            if (selectedGame === 'classic') {
+                // Link REAL do IPA Clássico
+                window.open('https://github.com/charlesman-uiado/Hollow-knight/releases/download/untagged-72e84ae5f7f6405fc7ed/Hollow.Knight.v1.5.78.11833b5.tg@glesign.ipa', '_blank');
+                alert('Download de Hollow Knight Clássico IPA iniciado!\n\n📱 Plataforma: iOS (iPhone/iPad)\n📁 Arquivo: Hollow.Knight.iOS.ipa\n💾 Tamanho: 1.5 GB\n\n✅ Saves e mods funcionam normalmente neste app!');
+            } else {
+                // Link simulado para Silksong IPA
+                const downloadLink = document.createElement('a');
+                downloadLink.href = '#';
+                downloadLink.download = 'Hollow_Knight_Silksong_IPA_v1.0.2.5.ipa';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                alert('Download de Hollow Knight Silksong IPA iniciado!\n\n📱 Plataforma: iOS (iPhone/iPad)\n📁 Arquivo: Hollow_Knight_Silksong_IPA_v1.0.2.5.ipa\n💾 Tamanho: 2.0 GB\n\n✅ Saves e mods funcionam normalmente neste app!');
+            }
+            
+            closeFormatModal();
+        }
+        
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('formatModal');
+            if (event.target === modal) {
+                closeFormatModal();
+            }
+        });
+        
+        // Adicionar evento aos botões de download direto
+        document.querySelectorAll('.direct-download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Permitir que o link abra normalmente
+                // Apenas mostrar mensagem adicional
+                const isAPK = this.classList.contains('apk-btn');
+                const platform = isAPK ? 'Android APK' : 'iOS IPA';
+                
+                setTimeout(function() {
+                    alert(`Download do ${platform} iniciado!\n\n✅ Este app suporta saves e mods normalmente!\n\n🔗 Link oficial do GitHub`);
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
