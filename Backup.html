@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zuflucht Specs - Seu Refúgio para Jogos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* [Todo o CSS original permanece EXATAMENTE IGUAL] */
+        :root {
+            --primary-color: #0a0a12;
+            --secondary-color: #1a1a2e;
+            --accent-color: #00ff9d;
+            --accent-secondary: #8a2be2;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0c0;
+            --danger-color: #ff4757;
+            --warning-color: #ffa502;
+            --success-color: #2ed573;
+            --border-radius: 8px;
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(10, 10, 18, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo span {
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width var(--transition-speed);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 50px;
+            text-align: center;
+            background: radial-gradient(circle at 30% 30%, rgba(26, 26, 46, 0.8), transparent 70%);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--text-secondary);
+        }
+        
+        /* Search & Filters */
+        .search-section {
+            margin-bottom: 40px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all var(--transition-speed);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-group label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .filter-group select {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            color: var(--text-primary);
+            min-width: 180px;
+        }
+        
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .game-card {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all var(--transition-speed);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .game-card-content {
+            padding: 20px;
+        }
+        
+        .game-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .game-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .game-platforms {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .platform-tag {
+            background-color: rgba(0, 255, 157, 0.1);
+            color: var(--accent-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .game-requirements {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .requirement-tag {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--accent-secondary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .game-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .view-details-btn {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .view-details-btn:hover {
+            background-color: #00cc7d;
+            transform: scale(1.05);
+        }
+        
+        .game-rating {
+            color: var(--warning-color);
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            padding: 40px 0;
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .footer-disclaimer {
+            max-width: 800px;
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            padding: 20px;
+            background-color: rgba(255, 71, 87, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--danger-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Game Details Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .game-details-modal {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform var(--transition-speed);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .modal-overlay.active .game-details-modal {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-modal:hover {
+            background-color: rgba(255, 71, 87, 0.2);
+            color: var(--danger-color);
+        }
+        
+        .modal-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .modal-header .game-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .modal-tabs {
+            display: flex;
+            background-color: rgba(10, 10, 18, 0.7);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .tab-btn {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+        
+        .tab-btn.active {
+            color: var(--accent-color);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .tab-content {
+            padding: 30px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .requirements-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .requirements-table th, .requirements-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .requirements-table th {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--accent-color);
+        }
+        
+        .requirements-table tr:hover {
+            background-color: rgba(0, 255, 157, 0.05);
+        }
+        
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .download-card {
+            background-color: rgba(10, 10, 18, 0.5);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all var(--transition-speed);
+        }
+        
+        .download-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        .download-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .download-btn:hover {
+            background-color: #00cc7d;
+            transform: scale(1.03);
+        }
+        
+        .compatibility-checker {
+            background-color: rgba(10, 10, 18, 0.5);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+        
+        .checker-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .checker-header h3 {
+            color: var(--accent-secondary);
+        }
+        
+        .checker-btn {
+            background: linear-gradient(to right, var(--accent-secondary), #6a11cb);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .checker-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .checker-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .checker-result.compatible {
+            background-color: rgba(46, 213, 115, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .checker-result.partial {
+            background-color: rgba(255, 165, 2, 0.1);
+            border: 1px solid var(--warning-color);
+            color: var(--warning-color);
+        }
+        
+        .checker-result.incompatible {
+            background-color: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .checker-result i {
+            margin-right: 10px;
+        }
+
+        /* Loader and AI Section */
+        .loader {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+        .loader-spinner {
+            border: 5px solid var(--secondary-color);
+            border-top: 5px solid var(--accent-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .ai-generated-section {
+            background-color: rgba(138, 43, 226, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        .ai-generated-section h4 {
+            color: var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .ai-loading {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(100%);
+            transition: transform var(--transition-speed);
+            z-index: 3000;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            border-left-color: var(--danger-color);
+        }
+        
+        .notification.success {
+            border-left-color: var(--success-color);
+        }
+        
+        .notification.warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+        }
+        
+        .pagination-btn {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            color: var(--text-primary);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .pagination-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .pagination-btn.active {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-color: var(--accent-color);
+        }
+        
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed);
+            z-index: 1000;
+            border: none;
+            font-size: 1.2rem;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-group {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-nav {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .mobile-nav.active {
+                display: block;
+            }
+            
+            .mobile-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .notification {
+                max-width: 300px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 50px 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .download-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .pagination-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="javascript:void(0)" class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>Zuflucht Specs</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="mobile-nav" id="mobileNav">
+                <ul>
+                    <li><a href="javascript:void(0)"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="javascript:void(0)"><i class="fas fa-download"></i> Downloads</a></li>
+                    <li><a href="javascript:void(0)"><i class="fas fa-cog"></i> Requisitos</a></li>
+                    <li><a href="javascript:void(0)"><i class="fas fa-info-circle"></i> Sobre</a></li>
+                    <li><a href="javascript:void(0)"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Zuflucht Specs</h1>
+            <p>Seu refúgio definitivo no mundo dos jogos. Encontre fichas técnicas completas, verificador de compatibilidade e detalhes gerados por IA para seu próximo jogo favorito.</p>
+            
+            <!-- Search & Filters -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar jogos por nome ou gênero...">
+                    <button id="searchButton">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="platformFilter"><i class="fas fa-desktop"></i> Plataforma</label>
+                        <select id="platformFilter">
+                            <option value="">Todas</option>
+                            <option value="4">PC</option>
+                            <option value="21">Android</option>
+                            <option value="3">iOS</option>
+                            <option value="6">Linux</option>
+                            <option value="14">Xbox</option>
+                            <option value="187">PlayStation 5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="genreFilter"><i class="fas fa-gamepad"></i> Gênero</label>
+                        <select id="genreFilter">
+                            <option value="">Todos</option>
+                            <option value="action">Ação</option>
+                            <option value="role-playing-games-rpg">RPG</option>
+                            <option value="strategy">Estratégia</option>
+                            <option value="shooter">FPS/Tiro</option>
+                            <option value="adventure">Aventura</option>
+                            <option value="racing">Corrida</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sortFilter"><i class="fas fa-sort-amount-down"></i> Ordenar por</label>
+                        <select id="sortFilter">
+                            <option value="-rating">Melhor Avaliado</option>
+                            <option value="-released">Mais Recente</option>
+                            <option value="name">Nome (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Game Grid -->
+    <main class="container">
+        <h2 style="margin-bottom: 20px; color: var(--accent-color);">Jogos em Destaque <small>(Carregados da API RAWG)</small></h2>
+        <div class="game-grid" id="gameGrid">
+            <div class="loader">
+                <div class="loader-spinner"></div>
+                <p>Buscando jogos incríveis para você...</p>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="paginationContainer" style="display: none;">
+            <button id="prevPageBtn" class="pagination-btn disabled">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span id="pageInfo" style="display: flex; align-items: center; color: var(--text-secondary); padding: 0 15px;"></span>
+            <button id="nextPageBtn" class="pagination-btn">
+                Próxima <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">Zuflucht Specs</div>
+            
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle"></i> 
+                <strong>AVISO:</strong> Este site utiliza dados da API RAWG e um proxy CORS público para funcionamento[citation:1][citation:6]. As descrições e avaliações são geradas por IA para fins demonstrativos. O site não hospeda arquivos de jogos.
+            </div>
+            
+            <div class="footer-links">
+                <a href="javascript:void(0)"><i class="fas fa-shield-alt"></i> Segurança</a>
+                <a href="javascript:void(0)"><i class="fas fa-question-circle"></i> Ajuda</a>
+                <a href="javascript:void(0)"><i class="fas fa-file-contract"></i> Termos</a>
+                <a href="javascript:void(0)"><i class="fas fa-user-shield"></i> Privacidade</a>
+                <a href="javascript:void(0)"><i class="fas fa-envelope"></i> Contato</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Zuflucht Specs. Dados fornecidos pela RAWG. Este é um projeto demonstrativo.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Notification container -->
+    <div id="notificationContainer"></div>
+    
+    <!-- Game Details Modal -->
+    <div class="modal-overlay" id="gameModal">
+        <div class="game-details-modal">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h2 id="modalGameTitle">Carregando...</h2>
+                <div class="game-meta">
+                    <span><i class="fas fa-calendar-alt"></i> Lançamento: <span id="modalReleaseDate">-</span></span>
+                    <span><i class="fas fa-star"></i> Avaliação: <span id="modalRating">-</span></span>
+                </div>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="overview">Visão Geral</button>
+                <button class="tab-btn" data-tab="requirements">Requisitos</button>
+                <button class="tab-btn" data-tab="compatibility">IA Insights</button>
+            </div>
+            
+            <div class="tab-content active" id="overview-tab">
+                <p id="modalGameDescription">Carregando descrição...</p>
+                
+                <div class="game-platforms" id="modalPlatforms">
+                    <!-- Platforms will be added by JavaScript -->
+                </div>
+                
+                <h3 style="margin-top: 20px; color: var(--accent-color);">Informações</h3>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li><strong>Gêneros:</strong> <span id="modalGenres">-</span></li>
+                    <li><strong>Desenvolvedores:</strong> <span id="modalDevelopers">-</span></li>
+                    <li><strong>Lojas:</strong> <span id="modalStores">-</span></li>
+                    <li><strong>Website:</strong> <span id="modalWebsite">-</span></li>
+                    <li><strong>Metacritic:</strong> <span id="modalMetacritic">-</span></li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="requirements-tab">
+                <h3 style="margin-bottom: 20px; color: var(--accent-color);">Requisitos do Sistema (Exemplo)</h3>
+                <p>Os requisitos exatos variam por jogo e plataforma. Esta é uma tabela de exemplo baseada em jogos populares de PC.</p>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Mínimos</th>
+                            <th>Recomendados</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requirementsTable">
+                        <tr><td>Sistema Operacional</td><td>Windows 10 64-bit</td><td>Windows 10/11 64-bit</td></tr>
+                        <tr><td>Processador</td><td>Intel Core i5 / AMD equivalente</td><td>Intel Core i7 / AMD Ryzen 5</td></tr>
+                        <tr><td>Memória RAM</td><td>8 GB</td><td>16 GB</td></tr>
+                        <tr><td>Placa de Vídeo</td><td>NVIDIA GTX 1060 / AMD RX 580</td><td>NVIDIA RTX 2060 / AMD RX 5700</td></tr>
+                        <tr><td>Armazenamento</td><td>50 GB HDD</td><td>50 GB SSD</td></tr>
+                    </tbody>
+                </table>
+                <div class="compatibility-checker">
+                    <div class="checker-header">
+                        <i class="fas fa-magic"></i>
+                        <h3>Verificar Compatibilidade</h3>
+                    </div>
+                    <p>Clique para simular uma verificação com seu sistema atual.</p>
+                    <button class="checker-btn" id="compatibilityBtn">
+                        <i class="fas fa-search"></i> Verificar Agora
+                    </button>
+                    <div class="checker-result" id="compatibilityResult"></div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="compatibility-tab">
+                <h3 style="margin-bottom: 20px; color: var(--accent-color);">Análise e Insights Gerados por IA</h3>
+                <div class="ai-generated-section">
+                    <h4><i class="fas fa-robot"></i> Descrição e Avaliação IA</h4>
+                    <div id="aiInsightsContent">
+                        <p class="ai-loading"><i class="fas fa-spinner fa-spin"></i> Gerando insights personalizados para este jogo... (Isso pode levar alguns segundos)</p>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; padding: 15px; background-color: rgba(0, 255, 157, 0.05); border-radius: var(--border-radius); border-left: 4px solid var(--accent-color);">
+                    <h4 style="color: var(--accent-color); margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Como a IA Ajuda Gamers?</h4>
+                    <p>Ferramentas de IA como <strong>Rosebud AI</strong> podem gerar código de jogos, enquanto <strong>Layer AI</strong> cria arte personalizada e <strong>Ludo.ai</strong> auxilia na pesquisa e ideação de novos jogos[citation:2]. Aqui, usamos IA para enriquecer sua experiência de descoberta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURAÇÃO ==========
+        // 🔑 SUBSTITUA ESTA CHAVE PELA SUA PRÓPRIA CHAVE DA GOOGLE AI STUDIO
+        const GEMINI_API_KEY = 'AIzaSyA7xC573tRPzqhMAOr6L2iXp03VGZrvjjg';
+        
+        const CORS_PROXY = 'https://corsproxy.io/?' + encodeURIComponent('https://api.rawg.io/api/');
+        const RAWG_API_KEY = 'c542e67aec3a4340908f9de9e86038af';
+        
+        // Cache para detalhes dos jogos
+        const gameDetailsCache = new Map();
+        
+        // Estado da aplicação
+        let allGames = [];
+        let currentFilteredGames = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        const gamesPerPage = 20;
+
+        // ========== ELEMENTOS DOM ==========
+        const gameGrid = document.getElementById('gameGrid');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const platformFilter = document.getElementById('platformFilter');
+        const genreFilter = document.getElementById('genreFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const gameModal = document.getElementById('gameModal');
+        const closeModal = document.getElementById('closeModal');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const compatibilityBtn = document.getElementById('compatibilityBtn');
+        const compatibilityResult = document.getElementById('compatibilityResult');
+        const paginationContainer = document.getElementById('paginationContainer');
+        const prevPageBtn = document.getElementById('prevPageBtn');
+        const nextPageBtn = document.getElementById('nextPageBtn');
+        const pageInfo = document.getElementById('pageInfo');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        // ========== FUNÇÃO PARA MOSTRAR NOTIFICAÇÕES ==========
+        function showNotification(message, type = 'info', duration = 5000) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <div>${message}</div>
+                </div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            // Trigger reflow para animação
+            notification.offsetWidth;
+            notification.classList.add('show');
+            
+            // Remover notificação após a duração
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, duration);
+        }
+
+        // ========== FUNÇÃO PARA FORMATAR LINKS ==========
+        function formatStoreLinks(stores) {
+            if (!stores || stores.length === 0) return 'Não disponível';
+            
+            const storeIcons = {
+                'steam': 'fab fa-steam',
+                'playstation-store': 'fab fa-playstation',
+                'xbox-store': 'fab fa-xbox',
+                'nintendo': 'fab fa-nintendo-switch',
+                'apple-appstore': 'fab fa-app-store-ios',
+                'google-play': 'fab fa-google-play',
+                'gog': 'fas fa-gamepad',
+                'epic-games': 'fab fa-epic-games',
+                'itch': 'fas fa-gamepad'
+            };
+            
+            return stores.slice(0, 3).map(store => {
+                const storeName = store.store.name;
+                const iconClass = storeIcons[store.store.slug] || 'fas fa-store';
+                return `<a href="https://rawg.io${store.url}" target="_blank" style="color: var(--accent-color); margin-right: 10px;" title="${storeName}">
+                    <i class="${iconClass}"></i> ${storeName}
+                </a>`;
+            }).join('');
+        }
+
+        function formatDeveloperLinks(developers) {
+            if (!developers || developers.length === 0) return 'Não informado';
+            
+            return developers.slice(0, 3).map(dev => {
+                return `<span class="requirement-tag" style="margin: 2px;">${dev.name}</span>`;
+            }).join('');
+        }
+
+        // ========== FUNÇÃO PRINCIPAL: BUSCAR JOGOS DA API RAWG ==========
+        async function fetchGamesFromRAWG(page = 1) {
+            const platform = platformFilter.value;
+            const genre = genreFilter.value;
+            const sort = sortFilter.value;
+            const searchQuery = searchInput.value.trim();
+
+            let apiUrl = `games?key=${RAWG_API_KEY}&page=${page}&page_size=${gamesPerPage}`;
+            if (searchQuery) apiUrl += `&search=${encodeURIComponent(searchQuery)}`;
+            if (platform) apiUrl += `&platforms=${platform}`;
+            if (genre) apiUrl += `&genres=${genre}`;
+            if (sort) apiUrl += `&ordering=${sort}`;
+
+            showLoader();
+            try {
+                const response = await fetch(CORS_PROXY + apiUrl);
+                if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
+                const data = await response.json();
+                
+                allGames = data.results;
+                currentFilteredGames = [...allGames];
+                totalPages = Math.ceil(data.count / gamesPerPage);
+                currentPage = page;
+                
+                renderGameCards(currentFilteredGames);
+                updatePagination();
+                
+                if (allGames.length === 0) {
+                    showNotification('Nenhum jogo encontrado com os filtros atuais.', 'warning');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar jogos:', error);
+                gameGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--danger-color);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>Falha ao carregar jogos</h3>
+                        <p>A API pode estar temporariamente indisponível ou a cota de requisições foi excedida.</p>
+                        <p>Tente novamente em alguns instantes.</p>
+                        <button onclick="fetchGamesFromRAWG()" style="margin-top:15px; padding: 10px 20px; background: var(--accent-color); color: var(--primary-color); border: none; border-radius: 5px; cursor: pointer;">Tentar Novamente</button>
+                    </div>`;
+                
+                showNotification('Erro ao carregar jogos. Tente novamente.', 'error');
+            }
+        }
+
+        // ========== FUNÇÃO: BUSCAR DETALHES COMPLETOS DO JOGO ==========
+        async function fetchGameDetails(gameId) {
+            // Verificar cache primeiro
+            if (gameDetailsCache.has(gameId)) {
+                return gameDetailsCache.get(gameId);
+            }
+            
+            try {
+                const response = await fetch(CORS_PROXY + `games/${gameId}?key=${RAWG_API_KEY}`);
+                if (!response.ok) throw new Error(`Erro nos detalhes: ${response.status}`);
+                const data = await response.json();
+                
+                // Armazenar no cache
+                gameDetailsCache.set(gameId, data);
+                return data;
+            } catch (error) {
+                console.error('Erro ao buscar detalhes:', error);
+                return null;
+            }
+        }
+
+        // ========== FUNÇÃO: GERAR DESCRIÇÃO COM IA (Gemini API) ==========
+        async function generateAIGameInsights(gameName, gameDescription) {
+            const aiContentElement = document.getElementById('aiInsightsContent');
+            if (!GEMINI_API_KEY || GEMINI_API_KEY === 'SUA_CHAVE_DA_API_AQUI') {
+                aiContentElement.innerHTML = `<p style="color:var(--warning-color);"><i class="fas fa-exclamation-circle"></i> Para ativar a geração de descrições por IA, insira sua chave da Google AI Studio no código.</p>`;
+                return;
+            }
+
+            aiContentElement.innerHTML = '<p class="ai-loading"><i class="fas fa-spinner fa-spin"></i> A IA está escrevendo uma análise para "<strong>' + gameName + '</strong>"...</p>';
+
+            const prompt = `Atue como um crítico de jogos especializado. Com base no título e na descrição fornecida, crie:
+1. Uma descrição envolvente e curta (máximo 120 palavras) que capture a essência e o apelo do jogo "${gameName}". Descrição base: "${gameDescription.substring(0, 200)}..."
+2. Uma avaliação simulada (nota de 0 a 10) com um parágrafo justificando os pontos fortes e fracos.
+Formate a resposta de forma clara e atraente.`;
+
+            try {
+                const proxyPromptUrl = 'https://corsproxy.io/?' + encodeURIComponent(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`);
+                const response = await fetch(proxyPromptUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    const aiText = data.candidates[0].content.parts[0].text;
+                    const formattedText = aiText.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/(\d+(\.\d+)?\/10)/g, '<strong>$1</strong>');
+                    aiContentElement.innerHTML = `<p>${formattedText}</p>`;
+                } else {
+                    throw new Error('Resposta inesperada da IA');
+                }
+            } catch (error) {
+                console.error('Erro ao gerar insights com IA:', error);
+                aiContentElement.innerHTML = `<p style="color:var(--text-secondary);"><i class="fas fa-info-circle"></i> <em>Os insights da IA não puderam ser carregados.</em></p>`;
+            }
+        }
+
+        // ========== RENDERIZAR OS CARDS DE JOGO ==========
+        function renderGameCards(gamesArray) {
+            gameGrid.innerHTML = '';
+            if (!gamesArray || gamesArray.length === 0) {
+                gameGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                    <i class="fas fa-gamepad" style="font-size: 3rem; margin-bottom: 20px;"></i><h3>Nenhum jogo encontrado</h3><p>Tente ajustar os filtros de busca.</p></div>`;
+                return;
+            }
+            
+            gamesArray.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.id = game.id;
+                const platformNames = game.platforms?.map(p => p.platform.name).slice(0, 3) || [];
+                const genreNames = game.genres?.map(g => g.name).slice(0, 2) || [];
+                
+                // Adicionar ícone de loja se disponível
+                const storeIcon = game.stores && game.stores.length > 0 ? 
+                    `<i class="fas fa-store" style="color: var(--accent-color); margin-right: 5px;"></i>` : '';
+                
+                card.innerHTML = `
+                    <img src="${game.background_image || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'}" alt="${game.name}" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                    <div class="game-card-content">
+                        <h3>${game.name}</h3>
+                        <p>${(game.description_raw || 'Descrição não disponível.').substring(0, 120)}...</p>
+                        <div class="game-platforms">${platformNames.map(name => `<span class="platform-tag">${name}</span>`).join('')}</div>
+                        <div class="game-requirements">
+                            ${genreNames.map(name => `<span class="requirement-tag">${name}</span>`).join('')}
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div style="font-size: 0.8rem; color: var(--accent-color);">
+                                ${storeIcon} Disponível nas lojas
+                            </div>
+                            <div class="game-rating"><i class="fas fa-star"></i> ${game.rating ? game.rating.toFixed(1) : 'N/A'}/5</div>
+                        </div>
+                        <div class="game-card-footer">
+                            <button class="view-details-btn" data-id="${game.id}">Ver Detalhes</button>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                                <i class="fas fa-code-branch"></i> ${game.developers_count || 0} devs
+                            </div>
+                        </div>
+                    </div>`;
+                gameGrid.appendChild(card);
+            });
+            
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => openGameModal(e.currentTarget.dataset.id));
+            });
+        }
+
+        function showLoader() {
+            gameGrid.innerHTML = `<div class="loader"><div class="loader-spinner"></div><p>Buscando jogos incríveis para você...</p></div>`;
+        }
+
+        // ========== ATUALIZAR PAGINAÇÃO ==========
+        function updatePagination() {
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+            
+            paginationContainer.style.display = 'flex';
+            pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+            
+            prevPageBtn.disabled = currentPage === 1;
+            prevPageBtn.classList.toggle('disabled', currentPage === 1);
+            
+            nextPageBtn.disabled = currentPage === totalPages;
+            nextPageBtn.classList.toggle('disabled', currentPage === totalPages);
+        }
+
+        // ========== ABRIR MODAL COM DETALHES ==========
+        async function openGameModal(gameId) {
+            const game = allGames.find(g => g.id == gameId);
+            if (!game) return;
+            
+            // Mostrar dados básicos primeiro
+            document.getElementById('modalGameTitle').textContent = game.name;
+            document.getElementById('modalReleaseDate').textContent = game.released || 'Não informado';
+            document.getElementById('modalRating').textContent = game.rating ? `${game.rating.toFixed(1)}/5` : 'N/A';
+            document.getElementById('modalGameDescription').textContent = game.description_raw || 'Descrição não disponível.';
+            document.getElementById('modalGenres').textContent = game.genres?.map(g => g.name).join(', ') || '-';
+            document.getElementById('modalWebsite').innerHTML = game.website ? 
+                `<a href="${game.website}" target="_blank" style="color:var(--accent-color);">Visitar Site Oficial</a>` : '-';
+            document.getElementById('modalMetacritic').textContent = game.metacritic ? `${game.metacritic}/100` : '-';
+            document.getElementById('modalPlatforms').innerHTML = (game.platforms || []).map(p => 
+                `<span class="platform-tag">${p.platform.name}</span>`).join('');
+            
+            // Mostrar carregamento para devs e lojas
+            document.getElementById('modalDevelopers').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+            document.getElementById('modalStores').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+            
+            // Resetar tabs
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('overview-tab').classList.add('active');
+            document.querySelector('[data-tab="overview"]').classList.add('active');
+            compatibilityResult.style.display = 'none';
+            
+            // Buscar detalhes completos do jogo
+            const gameDetails = await fetchGameDetails(gameId);
+            if (gameDetails) {
+                // Atualizar desenvolvedores
+                const developers = gameDetails.developers || [];
+                document.getElementById('modalDevelopers').innerHTML = developers.length > 0 ? 
+                    formatDeveloperLinks(developers) : 'Não informado';
+                
+                // Atualizar lojas
+                const stores = gameDetails.stores || [];
+                document.getElementById('modalStores').innerHTML = stores.length > 0 ? 
+                    formatStoreLinks(stores) : 'Não disponível';
+                
+                // Se não houver website oficial, tentar usar o primeiro link de loja como alternativa
+                if (!game.website && stores.length > 0) {
+                    document.getElementById('modalWebsite').innerHTML = 
+                        `<a href="https://rawg.io${stores[0].url}" target="_blank" style="color:var(--accent-color);">Ver na RAWG</a>`;
+                }
+            } else {
+                document.getElementById('modalDevelopers').textContent = 'Erro ao carregar';
+                document.getElementById('modalStores').textContent = 'Erro ao carregar';
+            }
+            
+            // Chamar IA para gerar insights
+            generateAIGameInsights(game.name, game.description_raw || '');
+            
+            // Mostrar modal
+            gameModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ========== CONFIGURAR EVENT LISTENERS ==========
+        function initializeEventListeners() {
+            // Busca e filtros
+            searchButton.addEventListener('click', () => fetchGamesFromRAWG(1));
+            searchInput.addEventListener('keyup', (e) => e.key === 'Enter' && fetchGamesFromRAWG(1));
+            [platformFilter, genreFilter, sortFilter].forEach(filter => 
+                filter.addEventListener('change', () => fetchGamesFromRAWG(1))
+            );
+            
+            // Menu móvel
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.innerHTML = mobileNav.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Modal
+            closeModal.addEventListener('click', () => {
+                gameModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            gameModal.addEventListener('click', (e) => {
+                if (e.target === gameModal) closeModal.click();
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+                    closeModal.click();
+                }
+            });
+            
+            // Tabs do modal
+            tabButtons.forEach(btn => btn.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                tabButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            }));
+            
+            // Verificador de compatibilidade
+            compatibilityBtn.addEventListener('click', () => {
+                const gameTitle = document.getElementById('modalGameTitle').textContent;
+                const system = detectSystem();
+                let resultText, resultClass;
+                
+                if (system.platform === 'windows') {
+                    resultText = `<p><i class="fas fa-check-circle"></i> <strong>✅ Compatibilidade Estimada: Boa</strong><br>Seu sistema (${system.details.os}) provavelmente roda "${gameTitle}". Para performance ideal, confirme os requisitos específicos do jogo.`;
+                    resultClass = 'compatible';
+                } else {
+                    resultText = `<p><i class="fas fa-exclamation-triangle"></i> <strong>⚠️ Verifique a disponibilidade</strong><br>"${gameTitle}" pode não ser otimizado para ${system.platform}. Consulte a loja oficial da plataforma.`;
+                    resultClass = 'partial';
+                }
+                
+                compatibilityResult.innerHTML = resultText;
+                compatibilityResult.className = `checker-result ${resultClass}`;
+                compatibilityResult.style.display = 'block';
+            });
+            
+            // Paginação
+            prevPageBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    fetchGamesFromRAWG(currentPage - 1);
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    fetchGamesFromRAWG(currentPage + 1);
+                }
+            });
+            
+            // Scroll to top
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Verificar scroll para mostrar botão de voltar ao topo
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+        }
+
+        function detectSystem() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Windows')) return { platform: 'windows', details: { os: 'Windows 10/11' } };
+            if (ua.includes('Mac')) return { platform: 'mac', details: { os: 'macOS' } };
+            if (ua.includes('Android')) return { platform: 'android', details: { os: 'Android' } };
+            if (ua.includes('iPhone') || ua.includes('iPad')) return { platform: 'ios', details: { os: 'iOS' } };
+            return { platform: 'unknown', details: { os: 'Sistema não detectado' } };
+        }
+
+        // ========== INICIAR APLICAÇÃO ==========
+        function initializeApp() {
+            initializeEventListeners();
+            fetchGamesFromRAWG(1);
+            
+            // Mostrar notificação de boas-vindas
+            setTimeout(() => {
+                showNotification('Bem-vindo ao Zuflucht Specs! Use os filtros para encontrar jogos perfeitos para você.', 'success', 6000);
+            }, 1000);
+        }
+        
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
